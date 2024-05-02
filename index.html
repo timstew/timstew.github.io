@@ -200,7 +200,7 @@
         canvas.id = 'outputCanvas';
         canvas.style.display = 'block';
         var formState = getFormState();
-        document.getElementById('link').innerHTML = `Bookmarkable URL: `;
+        document.getElementById('link').innerHTML = `Share URL: `;
         const linkElement = document.createElement('a');
         linkElement.href = `${window.location.href.split('?')[0]}?state=${formState}`;
         linkElement.textContent = '${window.location.href.split('?')[0]}?state=${formState}';
