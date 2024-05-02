@@ -200,10 +200,10 @@
         canvas.id = 'outputCanvas';
         canvas.style.display = 'block';
         var formState = getFormState();
-        document.getElementById('link').innerHTML = `Bookmarkable URL: ${window.location.href.split('?')[0]}?state=${formState}`;
+        document.getElementById('link').innerHTML = `Bookmarkable URL: `;
         const linkElement = document.createElement('a');
         linkElement.href = `${window.location.href.split('?')[0]}?state=${formState}`;
-        linkElement.textContent = 'Bookmarkable URL';
+        linkElement.textContent = '${window.location.href.split('?')[0]}?state=${formState}';
         linkElement.style.textDecoration = 'underline';
         linkElement.style.color = 'blue';
         document.getElementById('link').appendChild(linkElement);
