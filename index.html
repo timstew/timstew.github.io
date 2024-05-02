@@ -24,7 +24,7 @@
             margin: 0;
             padding: 10px;
             height: 100vh;
-            background: beige; /* This will set the beige background for the entire body */
+            background: white; /* This will set the beige background for the entire body */
         }
         .card {
             background: white;
@@ -34,8 +34,12 @@
             max-width: 600px;
             margin-bottom: 20px;
             border: 1px solid black;
-            overflow: hidden; /* Add this to prevent background bleeding */
-        }
+            padding: 10px; /* Added */
+            border-radius: 10px; /* Added */            
+          }
+          .overflow-hidden {
+            overflow: hidden;
+          }  
         .form-heading {
             font-size: 30px;
             text-align: center;
@@ -87,6 +91,12 @@
         }
         .and-die {
             margin-left: 20px; /* Indent 20px */
+        }
+        #outputCanvas {
+          position: relative; /* Or absolute depending on your layout needs */
+          z-index: 1000; /* Ensures it's on top */
+          display: block; /* Should be visible */
+          max-width: 600px; /* Consistent with your card */
         }
         @media (max-width: 600px) {
             .form-section {
@@ -164,6 +174,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     function getFormState() {
       const checkboxes = document.querySelectorAll('[type="checkbox"]');
       let bitMask = 0;
@@ -192,35 +213,74 @@
     }
 
     function captureForm() {
-      var formElement = document.getElementById('thebody');
-      html2canvas(formElement, {
-        onclone: function(clonedDocument) {
-          clonedDocument.querySelector('.submit-btn').style.visibility = 'hidden';
-        }
-      }).then(canvas => {
-        document.body.appendChild(canvas);
-        canvas.id = 'outputCanvas';
-        canvas.style.display = 'block';
-        var formState = getFormState();
-        document.getElementById('link').innerHTML = `Share URL: `;
-        const linkElement = document.createElement('a');
-        linkElement.href = `${window.location.href.split('?')[0]}?state=${formState}`;
-        linkElement.textContent = linkElement.href;
-        linkElement.style.textDecoration = 'underline';
-        linkElement.style.color = 'blue';
-        linkElement.target = '_blank';
-        document.getElementById('link').appendChild(linkElement);
-      });
+  var formElement = document.getElementById('thebody');
+  html2canvas(formElement, {
+    onclone: function(clonedDocument) {
+      clonedDocument.querySelector('.submit-btn').style.visibility = 'hidden';
+    },
+    backgroundColor: '#FFFFFF'
+  }).then(canvas => {
+    canvas.id = 'outputCanvas';
+    canvas.style.display = 'block'; // Make sure canvas is visible
+    var existingCanvas = document.getElementById('outputCanvas');
+    
+    if (existingCanvas) {
+      document.body.replaceChild(canvas, existingCanvas);
+    } else {
+      document.body.appendChild(canvas);
     }
 
-    window.onload = function() {
-      const params = new URLSearchParams(window.location.search);
-      const state = params.get('state');
-      if (state) {
-        setFormState(state);
-        captureForm(); // Automatically render the canvas if data is present
-      }
+    var formState = getFormState();
+    document.getElementById('link').innerHTML = 'Share URL: '; // Prepare to display the URL
+    const linkElement = document.createElement('a');
+    linkElement.href = `${window.location.href.split('?')[0]}?state=${formState}`;
+    linkElement.textContent = linkElement.href;
+    linkElement.style.textDecoration = 'underline';
+    linkElement.style.color = 'blue';
+    linkElement.target = '_blank';
+    document.getElementById('link').appendChild(linkElement);
+
+    // Re-add the necessary meta tags functionality
+    updateMetaTags(linkElement.href); // This assumes you have a function to update meta tags
+
+  }).catch(error => {
+    console.error('Error generating canvas:', error);
+  });
+  }
+
+  function updateMetaTags(imageUrl) {
+  const metaTags = [
+    { name: 'twitter:image', content: imageUrl },
+    { property: 'og:image', content: imageUrl },
+    { name: 'twitter:image:alt', content: 'A generated image from the card creator' },
+    { property: 'og:description', content: 'A generated image reflecting user input from the card creator' }
+  ];
+
+  metaTags.forEach(metaTag => {
+    let meta = document.querySelector(`meta[property='${metaTag.property}'], meta[name='${metaTag.name}']`);
+    if (meta) {
+      meta.content = metaTag.content;
+    } else {
+      meta = document.createElement('meta');
+      if (metaTag.name) meta.setAttribute('name', metaTag.name);
+      if (metaTag.property) meta.setAttribute('property', metaTag.property);
+      meta.setAttribute('content', metaTag.content);
+      document.head.appendChild(meta);
     }
+  });
+  }
+
+  window.onload = function() {
+  const params = new URLSearchParams(window.location.search);
+  const state = params.get('state');
+  if (state) {
+    setFormState(state);
+    setTimeout(() => {
+      captureForm(); // Delay rendering slightly if needed
+    }, 500); // Adjust time as necessary based on your app's behavior
+  }
+  }
+
   </script>
 </body>
 </html>
