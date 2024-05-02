@@ -162,6 +162,8 @@
 
 
 
+
+
     function getFormState() {
       const checkboxes = document.querySelectorAll('[type="checkbox"]');
       let bitMask = 0;
@@ -203,7 +205,7 @@
         document.getElementById('link').innerHTML = `Share URL: `;
         const linkElement = document.createElement('a');
         linkElement.href = `${window.location.href.split('?')[0]}?state=${formState}`;
-        linkElement.textContent = '${window.location.href.split('?')[0]}?state=${formState}';
+        linkElement.textContent = `${window.location.href.split('?')[0]}?state=${formState}`;
         linkElement.style.textDecoration = 'underline';
         linkElement.style.color = 'blue';
         document.getElementById('link').appendChild(linkElement);
