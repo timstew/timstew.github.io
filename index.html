@@ -285,6 +285,7 @@
 <script src="https://unpkg.com/@buildshipapp/chat-widget@^1" defer></script>
 <script>
   window.addEventListener("load", () => {
+    window.buildShipChatWidget.config.responseIsAStream = true;
     window.buildShipChatWidget.config.widgetTitle = "Chatbot";
     window.buildShipChatWidget.config.greetingMessage =
       "Hello! How may I help you today?";
