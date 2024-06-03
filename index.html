@@ -49,10 +49,8 @@
             width: 100%;
             cursor: pointer;
         }
-        canvas {
+        .chatbut {
             display: none; /* Initially hidden */
-            width: 100%; /* Responsive width */
-            max-width: 600px; /* Match card max width */
         }
 
         #outputCanvas {
@@ -74,12 +72,13 @@
 <body>
   <div id="thebody">
     <div class="card" id="formContainer">
-      <button data-buildship-chat-widget-button style="display: none">Beep Boop</button>  
+      <button data-buildship-chat-widget-button id="chatbut">Beep Boop</button>  
     </div>
   </div>
 <script src="https://unpkg.com/@buildshipapp/chat-widget@^1" defer></script>
 <script>
   window.addEventListener("load", () => {
+    window.buildShipChatWidget.config.closeOnOutsideClick = false;
     window.buildShipChatWidget.config.responseIsAStream = true;
     window.buildShipChatWidget.config.openOnLoad = true;
     window.buildShipChatWidget.config.widgetTitle = "Chatbot";
