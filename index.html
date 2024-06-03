@@ -282,5 +282,17 @@
   }
 
   </script>
+<script src="https://unpkg.com/@buildshipapp/chat-widget@^1" defer></script>
+<script>
+  window.addEventListener("load", () => {
+    window.buildShipChatWidget.config.widgetTitle = "Chatbot";
+    window.buildShipChatWidget.config.greetingMessage =
+      "Hello! How may I help you today?";
+    window.buildShipChatWidget.config.url =
+      "https://<project_id>.buildship.run/chat/....";
+    <!-- Other optional properties, learn more in the `Config Properties` section below -->
+  });
+</script>
+<button data-buildship-chat-widget-button>Beep Boop</button>  
 </body>
 </html>
