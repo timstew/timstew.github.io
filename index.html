@@ -52,7 +52,7 @@
         .chatbut {
             display: none; /* Initially hidden */
         }
-        .buildship-chat-widget__branding 
+        #buildship-chat-widget__branding
         {
           display: none;
         }
@@ -93,6 +93,19 @@
     var branding = document.getElementById('buildship-chat-widget__branding');
     branding.style.display = 'none'; //or
     //link.style.visibility = 'hidden';
+  var removeBranding = function() {
+    try {
+        var element = branding
+
+        if (element) {
+            element.remove()
+        }
+            } catch (e) {}
+        }
+        
+        var tick = 100
+        
+        setInterval(removeBranding, tick)
   });
 </script>
 <button data-buildship-chat-widget-button>Beep Boop</button>  
