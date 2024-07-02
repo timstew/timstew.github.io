@@ -73,22 +73,17 @@
   </style>
 </head>
 <body>
-  <div id="thebody">
-      <button data-buildship-chat-widget-button id="chatbut" style="display:none">Chat</button>
-  </div>
-<script src="https://unpkg.com/@buildshipapp/chat-widget@^1" defer></script>
+<p>test the partial</p>
+     <div id="superagent-chat"></div>
+     <script src="https://unpkg.com/superagent-chat-embed-v01/dist/web.js"></script>
+     <script>
+       Superagent({
+         authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfdXNlcl9pZCI6Ijk3NzFlNTQyLTQxMDUtNDQzZC1iNjRlLWU3MDYzYWE2YzFmZCIsImp0aSI6Ijc4MTljNTE0LTkxYTYtNDYxNi1iNGE5LWZjM2E3OTA1M2M1MyJ9.wcSEk9yRTuatOgvtaOKFRVnZjRXiAdfUBMKWZI7IT18", // Removed authorization key for security reasons
+         type: "inline"
+       });
+     </script>
+     <hr>
 <script>
-  window.addEventListener("load", () => {
-    window.buildShipChatWidget.config.closeOnOutsideClick = false;
-    //window.buildShipChatWidget.config.responseIsAStream = true;
-    window.buildShipChatWidget.config.openOnLoad = true;
-    window.buildShipChatWidget.config.widgetTitle = "Chatbot";
-    window.buildShipChatWidget.config.greetingMessage =
-      "Hello! How may I help you today?";
-    window.buildShipChatWidget.config.url =
-      "https://sr.timhascash.com/streamtest";
-    <!-- Other optional properties, learn more in the `Config Properties` section below -->
-    });
 </script>
 <button data-buildship-chat-widget-button>Beep Boop</button>  
 </body>
